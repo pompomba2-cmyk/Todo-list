@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamFlow - ระบบจัดการงานของทีม</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5C15 6.10457 14.1046 7 13 7H11C9.89543 7 9 6.10457 9 5Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>TeamFlow</span>
+                </div>
+            </div>
+
+            <!-- Role Selector Section -->
+            <div class="role-selector-section">
+                <label class="section-label">สิทธิ์ผู้ใช้งาน</label>
+                <div class="role-options">
+                    <button class="role-btn active" data-role="supervisor" id="btn-role-supervisor">
+                        <div class="role-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                        <span>หัวหน้างาน (Supervisor)</span>
+                    </button>
+                    
+                    <div class="divider"></div>
+                    <label class="section-label">บอร์ดของทีมงาน</label>
+                    
+                    <button class="role-btn" data-role="Jay" id="btn-role-jay">
+                        <div class="avatar" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">JY</div>
+                        <span>Jay</span>
+                    </button>
+                    <button class="role-btn" data-role="Joh" id="btn-role-joh">
+                        <div class="avatar" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">JH</div>
+                        <span>Joh</span>
+                    </button>
+                    <button class="role-btn" data-role="Gop" id="btn-role-gop">
+                        <div class="avatar" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">GP</div>
+                        <span>Gop</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Theme Toggle Footer -->
+            <div class="sidebar-footer">
+                <button class="theme-toggle-btn" id="theme-toggle">
+                    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <span>สลับโหมด</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="content-header">
+                <div class="header-title-area">
+                    <h1 id="current-view-title">ภาพรวมงานของทีม (Supervisor)</h1>
+                    <p class="subtitle" id="current-view-subtitle">ดูสถานะและติดตามความคืบหน้าของทุกคนในทีม</p>
+                </div>
+                <div class="header-actions">
+                    <button class="primary-btn" id="add-task-btn" style="display: none;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>สร้างงานใหม่</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Main dynamic view container -->
+            <div class="view-viewport">
+                
+                <!-- VIEW 1: SUPERVISOR VIEW -->
+                <div id="view-supervisor" class="view-panel active">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card total">
+                            <div class="stat-icon">📂</div>
+                            <div class="stat-info">
+                                <span class="stat-label">งานทั้งหมด</span>
+                                <h3 class="stat-value" id="stat-total">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card todo">
+                            <div class="stat-icon">📝</div>
+                            <div class="stat-info">
+                                <span class="stat-label">รอดำเนินการ</span>
+                                <h3 class="stat-value" id="stat-todo">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card in-progress">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-info">
+                                <span class="stat-label">กำลังทำ</span>
+                                <h3 class="stat-value" id="stat-progress">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card completed">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-info">
+                                <span class="stat-label">เสร็จสิ้น</span>
+                                <h3 class="stat-value" id="stat-completed">0</h3>
+                            </div>
+                        </div>
+                        <div class="stat-card overdue">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-info">
+                                <span class="stat-label">เลยกำหนดส่ง</span>
+                                <h3 class="stat-value" id="stat-overdue">0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workload & Insights Grid -->
+                    <div class="insights-grid">
+                        <!-- Workload Distribution -->
+                        <div class="dashboard-card workload-card">
+                            <div class="card-header">
+                                <h3>ภาระงานของแต่ละคน (Workload)</h3>
+                            </div>
+                            <div class="card-body" id="workload-list">
+                                <!-- Generated Dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Supervisor Notes Card -->
+                        <div class="dashboard-card notes-card">
+                            <div class="card-header">
+                                <h3>โน้ตบันทึกและวางแผนแจกจ่ายงาน</h3>
+                                <span class="save-status" id="notes-save-status">บันทึกอัตโนมัติแล้ว</span>
+                            </div>
+                            <div class="card-body" style="padding: 16px; height: calc(100% - 60px);">
+                                <textarea id="supervisor-notes" placeholder="พิมพ์บันทึก รายละเอียดงานร่าง หรือโน้ตสำหรับเตรียมแจกจ่ายให้ทีมงานที่นี่... (เช่น: &#10;- มอบหมายงานพัฒนา API ให้ Gop&#10;- ฝาก Jay ตรวจสอบหน้า Login เล็กน้อย)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Global Task List Table -->
+                    <div class="dashboard-card list-card">
+                        <div class="card-header list-header">
+                            <h3>รายการงานทั้งหมดของทีม</h3>
+                            <div class="table-filters">
+                                <div class="search-box">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                    <input type="text" id="search-input" placeholder="ค้นหาชื่องาน...">
+                                </div>
+                                <select id="filter-assignee">
+                                    <option value="all">ทุกคน (All Members)</option>
+                                    <option value="Jay">Jay</option>
+                                    <option value="Joh">Joh</option>
+                                    <option value="Gop">Gop</option>
+                                </select>
+                                <select id="filter-status">
+                                    <option value="all">ทุกสถานะ (All Status)</option>
+                                    <option value="todo">รอดำเนินการ</option>
+                                    <option value="in_progress">กำลังทำ</option>
+                                    <option value="completed">เสร็จสิ้น</option>
+                                    <option value="overdue">เลยกำหนดส่ง</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="task-table">
+                                <thead>
+                                    <tr>
+                                        <th>ชื่องาน</th>
+                                        <th>ผู้รับผิดชอบ</th>
+                                        <th>วันที่สร้าง</th>
+                                        <th>กำหนดส่ง (Deadline)</th>
+                                        <th>สถานะ</th>
+                                        <th style="width: 80px;">จัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="global-task-table-body">
+                                    <!-- Dynamic content -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIEW 2: MEMBER KANBAN VIEW -->
+                <div id="view-member" class="view-panel">
+                    <div class="kanban-board">
+                        
+                        <!-- To Do Column -->
+                        <div class="kanban-column" data-status="todo" id="col-todo">
+                            <div class="column-header">
+                                <div class="column-title-group">
+                                    <span class="column-dot todo"></span>
+                                    <h3>รอดำเนินการ (To Do)</h3>
+                                </div>
+                                <span class="column-count" id="count-todo">0</span>
+                            </div>
+                            <div class="kanban-cards-container" id="cards-todo">
+                                <!-- Cards generated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- In Progress Column -->
+                        <div class="kanban-column" data-status="in_progress" id="col-inprogress">
+                            <div class="column-header">
+                                <div class="column-title-group">
+                                    <span class="column-dot in-progress"></span>
+                                    <h3>กำลังทำ (In Progress)</h3>
+                                </div>
+                                <span class="column-count" id="count-inprogress">0</span>
+                            </div>
+                            <div class="kanban-cards-container" id="cards-inprogress">
+                                <!-- Cards generated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Completed Column -->
+                        <div class="kanban-column" data-status="completed" id="col-completed">
+                            <div class="column-header">
+                                <div class="column-title-group">
+                                    <span class="column-dot completed"></span>
+                                    <h3>เสร็จสิ้น (Completed)</h3>
+                                </div>
+                                <span class="column-count" id="count-completed">0</span>
+                            </div>
+                            <div class="kanban-cards-container" id="cards-completed">
+                                <!-- Cards generated dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Editor Modal -->
+    <div class="modal-overlay" id="task-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h2 id="modal-title">เพิ่มงานใหม่</h2>
+                <button class="close-btn" id="close-modal-btn">&times;</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                
+                <div class="form-group">
+                    <label for="task-name">ชื่องาน <span class="required">*</span></label>
+                    <input type="text" id="task-name" required placeholder="เช่น พัฒนาหน้า Login ของระบบ">
+                </div>
+
+                <div class="form-group">
+                    <label for="task-desc">รายละเอียดงาน</label>
+                    <textarea id="task-desc" rows="4" placeholder="ระบุรายละเอียดหรือขั้นตอนการทำงาน..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-assignee">ผู้รับผิดชอบ <span class="required">*</span></label>
+                        <select id="task-assignee" required>
+                            <option value="" disabled selected>เลือกผู้รับผิดชอบ</option>
+                            <option value="Jay">Jay</option>
+                            <option value="Joh">Joh</option>
+                            <option value="Gop">Gop</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-status">สถานะ <span class="required">*</span></label>
+                        <select id="task-status" required>
+                            <option value="todo">รอดำเนินการ (To Do)</option>
+                            <option value="in_progress">กำลังทำ (In Progress)</option>
+                            <option value="completed">เสร็จสิ้น (Completed)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-created">วันที่สร้าง</label>
+                        <input type="date" id="task-created" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-deadline">กำหนดส่ง (Deadline) <span class="required">*</span></label>
+                        <input type="date" id="task-deadline" required>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-danger" id="delete-task-btn" style="display: none;">ลบงานนี้</button>
+                    <div class="footer-right-buttons">
+                        <button type="button" class="btn-secondary" id="cancel-modal-btn">ยกเลิก</button>
+                        <button type="submit" class="btn-primary" id="save-task-btn">บันทึก</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
